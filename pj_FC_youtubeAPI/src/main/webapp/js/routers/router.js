@@ -1,33 +1,20 @@
 var AppRouter = Backbone.Router.extend({
 
 	routes : {
-		"" : "home",
-		"home" : 'home',
-		"toiletDB_selectCity" : "toiletDB_selectCity",
-		"toiletDB_detailInfo" : "toiletDB_detailInfo",
+		"" : "mainContent_html",
+		"uploadVideo_html" : "uploadVideo"
 	},
 	initialize : function() {
 		new home({
 			template : "#home"
 		});
 	},
-	home : function() {
-		this.changePage(new home());
+	mainContent_html : function() {
 	},
-
-	toiletDB_selectCity : function() {
-		$("#list").remove();
-		this.changePage(new toiletDB_selectCity());
+	uploadVideo: function(){
+		new uploadVideo();
 	},
-
-	toiletDB_detailInfo : function() {
-		$("#map").remove();
-		$(".title").remove();
-		$("#toiletArea").remove();
-		$("#openTime").remove();
-		this.changePage(new toiletDB_detailInfo());
-		
-	},
+	
 	changePage : function(page) {
 		$(page.el).attr('data-role', 'page');
 		page.render();
