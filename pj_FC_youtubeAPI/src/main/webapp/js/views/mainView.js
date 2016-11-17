@@ -22,10 +22,14 @@ var contentView = Backbone.View.extend({
 		this.$el.html(template);
 	},
 	events: {
-		'click ': 'loadvideo'
+		'click #loadvideo': 'loadvideo',
+		'click #search': 'search'
 	},
 	loadvideo: function(){
 		router.navigate('uploadVideo_html', true);
+	},
+	search: function(){
+		router.navigate('searchResult_html', true);
 	}
 });
 
@@ -44,7 +48,8 @@ var AppRouter = Backbone.Router.extend({
 
 	routes : {
 		"" : "mainContent_html",
-		"uploadVideo_html" : "uploadVideo"
+		"uploadVideo_html" : "uploadVideo",
+		"searchResult_html" : "searchResult",
 	},
 	initialize : function() {
 		
@@ -55,16 +60,8 @@ var AppRouter = Backbone.Router.extend({
 	uploadVideo: function(){
 		new uploadVideo();
 	},
-	
-	changePage : function(page) {
-		$(page.el).attr('data-role', 'page');
-		page.render();
-		$('body').append($(page.el));
-		$.mobile.defaultPageTransition = 'none';
-		$.mobile.changePage($(page.el), {
-			changeHash : false,
-		});
-		
+	searchResult: function(){
+		new youtubeSearchResult();
 	},
 
 });

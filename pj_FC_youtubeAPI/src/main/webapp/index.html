@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="lib/bootstrap-theme.css">
 <script src="lib/underscore.js"></script>
 <script src="lib/backbone.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
 <style>
 
 </style>
@@ -19,35 +20,41 @@
 
 
 <script type="text/template" id="header_html">
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">HOME</a>
-    </div>
+	<nav class="navbar navbar-default">
+  		<div class="container-fluid">
+    		<div class="navbar-header">
+      			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        			<span class="sr-only">Toggle navigation</span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+      			</button>
+      			<a class="navbar-brand" href="#">HOME</a>
+    		</div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
+    		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      			<ul class="nav navbar-nav">
+        			<li class="active"><a href="#uploadVideo_html">UPLOADVIDEO<span class="sr-only">(current)</span></a></li>
+        			<li><a href="#">MYVIDEOLIST</a></li>
+      			</ul>
+    		</div>
+  		</div>
+	</nav>
 </script>
 
 
 
 <script type="text/template" id="mainContent_html">
-	<div class="jumbotron text-center">main</div>
 
 	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<input type="text" id="insertKeyword">
+				<button id="search"><a href="#searchResult_html">검색</a></button> 
+			</div>
+		</div>
+
+
 		<div class="row">
 			<div class="col-xs-6">
 				<button><a href="#uploadVideo_html">insert icon</a></button>
@@ -59,15 +66,42 @@
 	
 
 		<div class="row">
+			<div class="col-sm-6">
+				<h6>맞춤 동영상 리스트 넣을 예정</h6>
+			</div>
+
+			<div class="col-sm-6">
+				<h6>맞춤 동영상 리스트 넣을 예정</h6>
+			</div>
 		</div>
 	</div>
 
-	
-
-
 </script>
 
+<script type="text/template" id="searchResult_html">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<input type="text" id="searchKeyword">
+				<button id="search">검색</button> 
+			</div>
+		</div>
 
+
+		<div class="row">
+			<ul class="list-group">
+				
+			</ul>
+
+		</div>
+
+		<div class="row">
+			<button id="prevPageBtn">이전목록</button>
+			<span id="numberUpDown">1</span>
+			<button id="nextPageBtn">다음목록</button>			
+		</div>
+	</div>
+</script>
 
 
 
@@ -77,11 +111,10 @@
 
 
 
-<script src="js/views/mainView.js"></script>
-<script src="js/routers/router.js"></script>
-<script>
 
-var youtube_apiKey = 'AIzaSyBuX1Lz5Ju46AGYdxkodv-946OEKgWPfow';
-</script>
+
+<script src="js/views/mainView.js"></script>
+<script src="js/views/youtubeSearchResult.js"></script>
+<script src="js/routers/router.js"></script>
 </body>
 </html>
