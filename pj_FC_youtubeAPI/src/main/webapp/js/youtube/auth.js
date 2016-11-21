@@ -4,17 +4,16 @@
 // you need to register your own client ID.
 
 var clientID = '758893354129-79830bqnfc1b52291g3meqcajcu0e3ku.apps.googleusercontent.com';
-var OAUTH2_CLIENT_ID = '758893354129-2d3s3ga938357tj6rn4in0a7k9ki2duj.apps.googleusercontent.com';
+var OAUTH2_CLIENT_ID = '758893354129-0fpooce0r59oe1ovu0e04arq43o943e9.apps.googleusercontent.com';
 var OAUTH2_SCOPES = [
   'https://www.googleapis.com/auth/youtube'
 ];
 
 // Upon loading, the Google APIs JS client automatically invokes this callback.
 googleApiClientReady = function() {
-  gapi.auth.init(function() {
-    window.setTimeout(checkAuth, 1);
-    
-  });
+	gapi.auth.init(function() {
+	    window.setTimeout(checkAuth, 1);
+	  });
 }
 
 // Attempt the immediate OAuth 2.0 client flow as soon as the page loads.
@@ -46,7 +45,7 @@ function handleAuthResult(authResult) {
       gapi.auth.authorize({
         client_id: OAUTH2_CLIENT_ID,
         scope: OAUTH2_SCOPES,
-        immediate: false
+        immediate: true
         }, handleAuthResult);
     });
   }
@@ -57,6 +56,6 @@ function handleAuthResult(authResult) {
 // https://developers.google.com/api-client-library/javascript/dev/dev_jscript#loading-the-client-library-and-the-api
 function loadAPIClientInterfaces() {
   gapi.client.load('youtube', 'v3', function() {
-    handleAPILoaded();
+	  gapi.client.setApiKey('AIzaSyCTgS4i5yhYxHF6FbQ_DKSbyBPiALrkYpM');
   });
 }

@@ -2,21 +2,20 @@ var AppRouter = Backbone.Router.extend({
 
 	routes : {
 		"" : "mainContent_html",
-		"searchResult_html" : "searchResult",
-		"uploadVideo_html" : "uploadVideo"
+		"uploadVideo_html" : "uploadVideo",
+		"searchResult_html" : "searchResult_html",
 	},
 	initialize : function() {
-		new home({
-			template : "#home"
-		});
+		
 	},
 	mainContent_html : function() {
+		new contentView();
 	},
-	uploadVideo: function(){
-		new uploadVideo();
+	
+	searchResult_html: function(){
+		this.changePage(searchResult);
 	},
-	searchResult: function(){
-		new youtubeSearchResult();
-	},
-
+	changePage: function(page){
+		page.render();
+	}
 });

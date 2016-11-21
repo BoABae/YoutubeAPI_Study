@@ -11,6 +11,10 @@
 <script src="lib/backbone.js"></script>
 <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
 <style>
+.searchDiv{
+	margin-top : 12px;
+	display : inline-block;
+}
 
 </style>
 </head>
@@ -30,9 +34,14 @@
         			<span class="icon-bar"></span>
       			</button>
       			<a class="navbar-brand" href="#">HOME</a>
+				<div class="searchDiv">
+					<input type="text" id="insertKeyword">
+					<button class="search"><a href="#searchResult_html">검색</a></button>
+				</div>	
     		</div>
 
-    		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				
+    		<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
       			<ul class="nav navbar-nav">
         			<li class="active"><a href="#uploadVideo_html">UPLOADVIDEO<span class="sr-only">(current)</span></a></li>
         			<li><a href="#">MYVIDEOLIST</a></li>
@@ -47,14 +56,6 @@
 <script type="text/template" id="mainContent_html">
 
 	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<input type="text" id="insertKeyword">
-				<button id="search"><a href="#searchResult_html">검색</a></button> 
-			</div>
-		</div>
-
-
 		<div class="row">
 			<div class="col-xs-6">
 				<button><a href="#uploadVideo_html">insert icon</a></button>
@@ -80,12 +81,7 @@
 
 <script type="text/template" id="searchResult_html">
 	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<input type="text" id="searchKeyword">
-				<button id="search">검색</button> 
-			</div>
-		</div>
+		
 
 
 		<div class="row">
@@ -98,7 +94,8 @@
 		<div class="row">
 			<button id="prevPageBtn">이전목록</button>
 			<span id="numberUpDown">1</span>
-			<button id="nextPageBtn">다음목록</button>			
+			<button id="nextPageBtn">다음목록</button>	
+			<button id="temp">임시</button>	
 		</div>
 	</div>
 </script>
@@ -113,8 +110,9 @@
 
 
 
+<script src="js/routers/router.js"></script>
 <script src="js/views/mainView.js"></script>
 <script src="js/views/youtubeSearchResult.js"></script>
-<script src="js/routers/router.js"></script>
+<script src="js/models/youtubeModel.js"></script>
 </body>
 </html>

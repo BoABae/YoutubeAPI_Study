@@ -1,6 +1,4 @@
-var nextPageToken, prevPageToken;
-var type = $(this).attr('count_range');
-
+var firstPage=true;
 
 var youtubeSearchResult = Backbone.View.extend({
 	el:$("#content"),
@@ -11,48 +9,58 @@ var youtubeSearchResult = Backbone.View.extend({
 		var template = _.template($("#searchResult_html").html(), {});
 		this.$el.html(template);
 	},
-	events: {
-		'click #search': 'search',
-		'click #nextPageBtn': 'nextPage',
-		'click #prevPageBtn': 'prevPage',
-	},
-	
 	search: function(){
 		var self = this;
-		//$(".list-group").remove();
+		console.log("search");
+		$(".list-group").empty();
 		gapi.client.load('youtube', 'v3', function(){
 			gapi.client.setApiKey('AIzaSyCTgS4i5yhYxHF6FbQ_DKSbyBPiALrkYpM');
 			self.searchYouTubeApi();
-			
 		});
-		
+	},
+	events: {
+		'click #nextPageBtn': 'nextPage',
+		'click #prevPageBtn': 'prevPage',
+		'click #temp': 'temp'
+	},
+	temp: function(){
+		console.log('hi');
 	},
 	
 	nextPage: function(){
-		console.log("nextpage");
-		this.searchYouTubeApi(nextPageToken);
+		
+		$(".list-group").empty();
+		var self = this;
+		var pToken = token.toJSON();
+		var nextPage = pToken.nextPageToken;
+		console.log(nextPage);
+		self.searchYouTubeApi(nextPage);
+		
 		var stat = $('#numberUpDown').text();
-        var num = parseInt(stat,10);
+        var num = parseInt(stat);
         num++;
-        console.log(num);
         $('#numberUpDown').text(num);
+        
 	},
 	prevPage: function(){
-		this.searchYouTubeApi(prevPageToken);
+		$(".list-group").empty();
+		var self = this;
+		var pToken = token.toJSON();
+		var prevPage = pToken.prevPageToken;
+		console.log(prevPage);
+		self.searchYouTubeApi(prevPage);
 		var stat = $('#numberUpDown').text();
+		
         var num = parseInt(stat,10);
         num--;
-        $('#numberUpDown').text(num);
         if(num<=0){
-        num =1;
+        	num = 1;
         }
-        console.log(num);
+        $('#numberUpDown').text(num);
 	},
 	searchYouTubeApi: function(PageToken){
-		console.log("hihi");
 		var self = this;
-		var sKeyword = $("#searchKeyword").val();
-		console.log(sKeyword);
+		var sKeyword = kWord.get('keyword');
 		var request = gapi.client.youtube.search.list(
 	            {
 	            part: 'snippet',
@@ -64,24 +72,31 @@ var youtubeSearchResult = Backbone.View.extend({
 	
 	},
 	onSearchResponse: function(response){
-		console.log(response);
 		var responseString = JSON.stringify(response, '', 1);
+		var nextPageToken = response.nextPageToken;
+			prevPageToken=response.prevPageToken;
+		token.set({nextPageToken : nextPageToken, prevPageToken : prevPageToken});
+
 		for(i = 0; i< response.items.length; i++){
-			var publishedAt = response.items[i].snippet.publishedAt;
-			var channelId = response.items[i].snippet.channelId;
 			var title = response.items[i].snippet.title;
-			var description = response.items[i].snippet.description;
 			var thumbnails_default = response.items[i].snippet.thumbnails.default.url;
-            var thumbnails_medium = response.items[i].snippet.thumbnails.medium.url;
-            var thumbnails_high = response.items[i].snippet.thumbnails.high.url;
-            var channelTitle = response.items[i].snippet.channelTitle;
-            var liveBroadcastContent = response.items[i].snippet.liveBroadcastContent;
             var videoID = response.items[i].id.videoId;
             
-            content = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+videoID+"'><source src='http://www.youtube.com/watch?v="+videoID+"'></video><img id=imgTD src=\""+thumbnails_default+"\"/></a>";
-            $(".list-group").append("<li class='list-group-item'>" + content + "</li>");
+            rList.set({title : title, videoId : videoID, thumbnails_default: thumbnails_default});
+            
+            var t = rList.get('title');
+            var v = rList.get('videoId');
+            var d = rList.get('thumbnails_default');
+            
+            if(firstPage === true){
+            	video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+ v +"'><source src='http://www.youtube.com/watch?v="+ v +"'></video><img id=imgTD src=\""+ d +"\"/></a>";
+            	$(".list-group").append("<li class='list-group-item'>" + video + t + "</li>");
+            }else{
+            	$(".list-group").empty();
+            	video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+ v +"'><source src='http://www.youtube.com/watch?v="+ v +"'></video><img id=imgTD src=\""+ d +"\"/></a>";
+            	$(".list-group").append("<li class='list-group-item'>" + video + t + "</li>");
+            }
 		}
 	},
-	
 	
 });

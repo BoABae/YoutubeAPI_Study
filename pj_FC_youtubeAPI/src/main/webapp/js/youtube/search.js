@@ -49,7 +49,7 @@ function onYouTubeApiLoad(){
         console.log(num);
      });
 	
-	
+	console.log(prevPageToken);
 	
 	gapi.client.setApiKey('AIzaSyCTgS4i5yhYxHF6FbQ_DKSbyBPiALrkYpM');
 	searchYouTubeApi();
