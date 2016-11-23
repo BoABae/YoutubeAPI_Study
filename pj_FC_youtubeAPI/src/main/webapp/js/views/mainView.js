@@ -16,6 +16,7 @@ var headerView = Backbone.View.extend({
 		var self = this;
 		var sKeyword = $("#insertKeyword").val();
 		kWord.set({keyword: sKeyword});
+		$("#numberUpDown").html(1);
 		$(".list-group").empty();
 		searchResult.search();
 		router.navigate('searchResult_html', true);
@@ -56,11 +57,10 @@ var uploadVideo = Backbone.View.extend({
 });
 
 
-
 $(document).ready(function(){
-	var hdView = new headerView();
-	var cntView = new contentView();
-	var uploadV = new uploadVideo();
+	hdView = new headerView();
+	cntView = new contentView();
+	uploadV = new uploadVideo();
 	searchResult = new youtubeSearchResult();
 	
 	rList = new resultList();

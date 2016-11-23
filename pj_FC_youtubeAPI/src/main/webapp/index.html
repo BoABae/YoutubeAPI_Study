@@ -15,6 +15,10 @@
 	margin-top : 12px;
 	display : inline-block;
 }
+#ytplayer{
+	width: 200px;
+	height: 120px;
+}
 
 </style>
 </head>
@@ -58,10 +62,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-6">
-				<button><a href="#uploadVideo_html">insert icon</a></button>
+				<button><a href="#uploadVideo_html">uploadVideo</a></button>
 			</div>
 			<div class="col-xs-6">
-				<button><a href="#videoList_html">video list</a></button>
+				<button><a href="#videoList_html">myVideoList</a></button>
 			</div>
 		</div>
 	
@@ -95,7 +99,6 @@
 			<button id="prevPageBtn">이전목록</button>
 			<span id="numberUpDown">1</span>
 			<button id="nextPageBtn">다음목록</button>	
-			<button id="temp">임시</button>	
 		</div>
 	</div>
 </script>
@@ -106,6 +109,9 @@
 	<h1>video upload</h1>
 </script>
 
+<script type="text/template" id="myVideoList_html">
+	<h1>myVideoList</h1>
+</script>
 
 
 

@@ -86,7 +86,7 @@ $(document).ready(function()
         
         function onSearchResponse(response) 
         {
-         
+        	console.log(response);
             var responseString = JSON.stringify(response, '', 1);
             var resultCount = response.pageInfo.totalResults;
             	resultsPageCount = response.pageInfo.resultsPerPage;
@@ -128,7 +128,7 @@ $(document).ready(function()
                 var titles = title.substring(0,10)
                 var res = publishedAt.substring(0,10)
                 var descriptions = description.substring(0,12)
-                
+                console.log(channelId);
                if(firstPage===true)
                {
                // print the stored variables in a div element

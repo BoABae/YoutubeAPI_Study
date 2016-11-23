@@ -1,6 +1,7 @@
 var keyword = Backbone.Model.extend({
 	defaults: {
 		keyword: '',
+		num: '',
 	}
 });
 

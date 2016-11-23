@@ -3,21 +3,22 @@ var playlistId, nextPageToken, prevPageToken;
 
 // After the API loads, call a function to get the uploads playlist ID.
 function handleAPILoaded() {
-	
-	gapi.client.load('youtube', 'v3', requestUserUploadsPlaylistId);
+  requestUserUploadsPlaylistId();
 }
 
 // Call the Data API to retrieve the playlist ID that uniquely identifies the
 // list of videos uploaded to the currently authenticated user's channel.
 function requestUserUploadsPlaylistId() {
   // See https://developers.google.com/youtube/v3/docs/channels/list
-	gapi.client.setApiKey('AIzaSyCTgS4i5yhYxHF6FbQ_DKSbyBPiALrkYpM');
   var request = gapi.client.youtube.channels.list({
-    mine: true,
+	mine: true,
     part: 'contentDetails'
   });
   request.execute(function(response) {
+	  var str = JSON.stringify(response.result);
+	  $("#test").html(str);
     playlistId = response.result.items[0].contentDetails.relatedPlaylists.uploads;
+    console.log(playlistId);
     requestVideoPlaylist(playlistId);
   });
 }

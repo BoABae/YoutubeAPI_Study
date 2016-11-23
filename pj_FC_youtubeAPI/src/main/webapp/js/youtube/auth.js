@@ -3,8 +3,7 @@
 // If you run this code from a server other than http://localhost,
 // you need to register your own client ID.
 
-var clientID = '758893354129-79830bqnfc1b52291g3meqcajcu0e3ku.apps.googleusercontent.com';
-var OAUTH2_CLIENT_ID = '758893354129-0fpooce0r59oe1ovu0e04arq43o943e9.apps.googleusercontent.com';
+var OAUTH2_CLIENT_ID = '63003107558-ft047cvll1gasan36pbnf7m2cm7547db.apps.googleusercontent.com';
 var OAUTH2_SCOPES = [
   'https://www.googleapis.com/auth/youtube'
 ];
@@ -25,7 +24,7 @@ function checkAuth() {
   gapi.auth.authorize({
     client_id: OAUTH2_CLIENT_ID,
     scope: OAUTH2_SCOPES,
-    immediate: false
+    immediate: false,
   }, handleAuthResult);
 }
 
@@ -36,8 +35,9 @@ function handleAuthResult(authResult) {
     // content that should be visible after authorization succeeds.
     $('.pre-auth').hide();
     $('.post-auth').show();
+    
+    console.log(authResult.access_token);
     loadAPIClientInterfaces();
-    console.log(authResult);
   } else {
     // Make the #login-link clickable. Attempt a non-immediate OAuth 2.0
     // client flow. The current function is called when that flow completes.
@@ -50,12 +50,15 @@ function handleAuthResult(authResult) {
     });
   }
 }
+function loadAPIClientInterfaces() {
+	  gapi.client.load('youtube', 'v3', function() {
+	    handleAPILoaded();
+	  });
+	}
 
 // Load the client interfaces for the YouTube Analytics and Data APIs, which
 // are required to use the Google APIs JS client. More info is available at
 // https://developers.google.com/api-client-library/javascript/dev/dev_jscript#loading-the-client-library-and-the-api
-function loadAPIClientInterfaces() {
-  gapi.client.load('youtube', 'v3', function() {
-	  gapi.client.setApiKey('AIzaSyCTgS4i5yhYxHF6FbQ_DKSbyBPiALrkYpM');
-  });
-}
+//function loadAPIClientInterfaces() {
+//	handleAPILoaded();
+//}

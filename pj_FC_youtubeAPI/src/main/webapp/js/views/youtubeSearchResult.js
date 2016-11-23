@@ -11,7 +11,6 @@ var youtubeSearchResult = Backbone.View.extend({
 	},
 	search: function(){
 		var self = this;
-		console.log("search");
 		$(".list-group").empty();
 		gapi.client.load('youtube', 'v3', function(){
 			gapi.client.setApiKey('AIzaSyCTgS4i5yhYxHF6FbQ_DKSbyBPiALrkYpM');
@@ -21,7 +20,6 @@ var youtubeSearchResult = Backbone.View.extend({
 	events: {
 		'click #nextPageBtn': 'nextPage',
 		'click #prevPageBtn': 'prevPage',
-		'click #temp': 'temp'
 	},
 	temp: function(){
 		console.log('hi');
@@ -89,12 +87,12 @@ var youtubeSearchResult = Backbone.View.extend({
             var d = rList.get('thumbnails_default');
             
             if(firstPage === true){
-            	video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+ v +"'><source src='http://www.youtube.com/watch?v="+ v +"'></video><img id=imgTD src=\""+ d +"\"/></a>";
-            	$(".list-group").append("<li class='list-group-item'>" + video + t + "</li>");
+            	emVideo = "<iframe id=ytplayer src='http://www.youtube.com/embed/" + v +"' frameborder=0/>"
+            	$(".list-group").append("<li class='list-group-item'>" + emVideo + t + "</li>");
             }else{
             	$(".list-group").empty();
-            	video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+ v +"'><source src='http://www.youtube.com/watch?v="+ v +"'></video><img id=imgTD src=\""+ d +"\"/></a>";
-            	$(".list-group").append("<li class='list-group-item'>" + video + t + "</li>");
+            	emVideo = "<iframe id=ytplayer src='http://www.youtube.com/embed/" + v +"' frameborder=0/>"
+            	$(".list-group").append("<li class='list-group-item'>" + emVideo + t + "</li>");
             }
 		}
 	},
