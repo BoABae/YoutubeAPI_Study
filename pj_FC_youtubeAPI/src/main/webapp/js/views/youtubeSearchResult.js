@@ -12,10 +12,7 @@ var youtubeSearchResult = Backbone.View.extend({
 	search: function(){
 		var self = this;
 		$(".list-group").empty();
-		gapi.client.load('youtube', 'v3', function(){
-			gapi.client.setApiKey('AIzaSyCTgS4i5yhYxHF6FbQ_DKSbyBPiALrkYpM');
-			self.searchYouTubeApi();
-		});
+		self.searchYouTubeApi();
 	},
 	events: {
 		'click #nextPageBtn': 'nextPage',

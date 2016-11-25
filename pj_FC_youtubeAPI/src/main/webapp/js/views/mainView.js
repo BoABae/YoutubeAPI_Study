@@ -68,30 +68,6 @@ var contentView = Backbone.View.extend({
 });
 
 
-var uploadVideo = Backbone.View.extend({
-	el:$("#content"),
-	initialize: function(){
-		this.render();
-	},
-	render: function(){
-		var template = _.template($("#uploadVideo_html").html(), {});
-		this.$el.html(template);
-	},
-	upLoad: function(){
-		var self = this;
-		console.log("upload");
-		var request = gapi.client.youtube.videos.insert({
-			part: 'snippet, contentDetails',
-			stabilize: true,
-		});
-		console.log(request);
-		request.execute(function(response){
-			console.log(response.result);
-		});
-	}
-});
-
-
 $(document).ready(function(){
 	hdView = new headerView();
 	cntView = new contentView();

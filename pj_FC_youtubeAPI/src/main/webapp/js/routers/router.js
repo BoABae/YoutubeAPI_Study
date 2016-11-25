@@ -16,9 +16,11 @@ var AppRouter = Backbone.Router.extend({
 	
 	searchResult_html: function(){
 		this.changePage(searchResult);
+		onLoadAuth(searchResult.search());
 	},
 	upLoadVideo: function(){
 		this.changePage(uploadV);
+		onLoadAuth(uploadV.upLoad());
 	},
 	myVideoList: function(){
 		this.changePage(myVideo);

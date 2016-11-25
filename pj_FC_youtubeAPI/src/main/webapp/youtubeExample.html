@@ -11,21 +11,25 @@
   clear: both;
 }
 </style>
+<link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
-	<!-- <div id="buttons">
-      <label> <input id="query" value='cats' type="text"/><button id="search-button" disabled onclick="search()">Search</button></label>
-    </div>
-    <div id="search-container">
-    </div> -->
-	<button id="search">click</button>    
-    <div id="test"></div>
-     <div id="test1"></div>
-     <div id="img"></div>
+	<div id="channelName"></div>
+	<div id="channelThumbnails"></div>
+	<input type="file" id="uploadFile">
+	<input type="text" id="title">
+	<input type="text" id="description">
+	<button id="submit">submit</button>
+	<button id="temp">temp</button>
+	<div class="during-upload">
+        <p><span id="percent-transferred"></span>% done (<span id="bytes-transferred"></span>/<span id="total-bytes"></span> bytes)</p>
+        <progress id="upload-progress" max="1" value="0"></progress>
+      </div>
+	
 	<script
 		src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	<script src="js/youtube/auth.js"></script>
-	<script src="js/youtube/search_authTest.js"></script>
+	<script src="exYT/auth.js"></script>
+	<script src="exYT/uploadVideo.js" charset="UTF-8"></script>
 	<script
 		src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
 </body>

@@ -42,10 +42,10 @@ var myVideoListView = Backbone.View.extend({
 			prevPageToken = response.result.prevPageToken;
 			var str = JSON.stringify(response.result);
 			var obj = JSON.parse(str);
-			console.log(obj.items[0].contentDetails.videoId);
 			
 			for(i=0; i< obj.items.length ; i++){
 				var videoId = obj.items[i].contentDetails.videoId;
+				var title = obj.items[i].snippet.title;
 				thumbnails_default = obj.items[i].snippet.thumbnails.medium.url;
 				
 				video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+videoId+"'><source src='http://www.youtube.com/watch?v="+videoId+"'></video><img id=imgTD src=\""+thumbnails_default+"\"/></a>";
