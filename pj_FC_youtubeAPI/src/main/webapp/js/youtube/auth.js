@@ -36,7 +36,6 @@ function handleAuthResult(authResult) {
     $('.pre-auth').hide();
     $('.post-auth').show();
     
-    console.log(authResult.access_token);
     loadAPIClientInterfaces();
   } else {
     // Make the #login-link clickable. Attempt a non-immediate OAuth 2.0
@@ -51,11 +50,12 @@ function handleAuthResult(authResult) {
   }
 }
 function loadAPIClientInterfaces() {
-	  gapi.client.load('youtube', 'v3', function() {
-		  cntView.activities();
-		  uploadV.upLoad();
-	  });
-	}
+	  gapi.client.load('youtube', 'v3', onLoadAuth());
+}
+
+function onLoadAuth(){
+	
+}
 
 // Load the client interfaces for the YouTube Analytics and Data APIs, which
 // are required to use the Google APIs JS client. More info is available at

@@ -22,6 +22,7 @@ var AppRouter = Backbone.Router.extend({
 	},
 	myVideoList: function(){
 		this.changePage(myVideo);
+		onLoadAuth(myVideo.playList());
 	},
 	changePage: function(page){
 		page.render();
