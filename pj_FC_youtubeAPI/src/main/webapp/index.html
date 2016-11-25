@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="lib/bootstrap-theme.css">
 <script src="lib/underscore.js"></script>
 <script src="lib/backbone.js"></script>
-<script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+
 <style>
 .searchDiv{
 	margin-top : 12px;
@@ -65,19 +65,15 @@
 				<button><a href="#uploadVideo_html">uploadVideo</a></button>
 			</div>
 			<div class="col-xs-6">
-				<button><a href="#videoList_html">myVideoList</a></button>
+				<button><a href="#myVideoList_html">myVideoList</a></button>
 			</div>
 		</div>
 	
 
 		<div class="row">
-			<div class="col-sm-6">
-				<h6>맞춤 동영상 리스트 넣을 예정</h6>
-			</div>
-
-			<div class="col-sm-6">
-				<h6>맞춤 동영상 리스트 넣을 예정</h6>
-			</div>
+			<ul class="list-group">
+				
+			</ul>
 		</div>
 	</div>
 
@@ -107,6 +103,7 @@
 
 <script type="text/template" id="uploadVideo_html">
 	<h1>video upload</h1>
+	<button id="temp">temp</button>
 </script>
 
 <script type="text/template" id="myVideoList_html">
@@ -118,7 +115,10 @@
 
 <script src="js/routers/router.js"></script>
 <script src="js/views/mainView.js"></script>
+<script src="js/youtube/auth.js"></script>
 <script src="js/views/youtubeSearchResult.js"></script>
+<script src="js/views/myVideoListView.js"></script>
 <script src="js/models/youtubeModel.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
 </body>
 </html>

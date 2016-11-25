@@ -29,18 +29,41 @@ var contentView = Backbone.View.extend({
 		this.render();
 	},
 	render: function(){
+		var self = this;
 		var template = _.template($("#mainContent_html").html(), {});
 		this.$el.html(template);
 	},
 	events: {
 		'click #loadvideo': 'loadvideo',
-		'click #search': 'search'
+		'click #search': 'search',
 	},
 	loadvideo: function(){
 		router.navigate('uploadVideo_html', true);
 	},
 	search: function(){
 		router.navigate('searchResult_html', true);
+	},
+	activities: function(){
+		console.log("activities");
+		var self = this;
+		var request = gapi.client.youtube.activities.list({
+			part: 'contentDetails, snippet',
+			home: true,
+			maxResult: 5,
+		});
+		request.execute(self.activitiesList);
+	},
+	activitiesList: function(response){
+		var str = JSON.stringify(response.result);
+		var obj = JSON.parse(str);
+
+		for(i=0; i<obj.items.length; i++){
+			var t = obj.items[i].snippet.title;
+			var v = obj.items[i].contentDetails.upload.videoId;
+			
+			emVideo = "<iframe id=ytplayer src='http://www.youtube.com/embed/" + v +"' frameborder=0/>"
+        	$(".list-group").append("<li class='list-group-item'>" + emVideo + t + "</li>");
+		}
 	}
 });
 
@@ -53,6 +76,18 @@ var uploadVideo = Backbone.View.extend({
 	render: function(){
 		var template = _.template($("#uploadVideo_html").html(), {});
 		this.$el.html(template);
+	},
+	upLoad: function(){
+		var self = this;
+		console.log("upload");
+		var request = gapi.client.youtube.videos.insert({
+			part: 'snippet, contentDetails',
+			stabilize: true,
+		});
+		console.log(request);
+		request.execute(function(response){
+			console.log(response.result);
+		});
 	}
 });
 
@@ -62,6 +97,8 @@ $(document).ready(function(){
 	cntView = new contentView();
 	uploadV = new uploadVideo();
 	searchResult = new youtubeSearchResult();
+	myVideo = new myVideoListView();
+	
 	
 	rList = new resultList();
 	token = new pageToken();

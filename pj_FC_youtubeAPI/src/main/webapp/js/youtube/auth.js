@@ -24,7 +24,7 @@ function checkAuth() {
   gapi.auth.authorize({
     client_id: OAUTH2_CLIENT_ID,
     scope: OAUTH2_SCOPES,
-    immediate: false,
+    immediate: true,
   }, handleAuthResult);
 }
 
@@ -52,7 +52,8 @@ function handleAuthResult(authResult) {
 }
 function loadAPIClientInterfaces() {
 	  gapi.client.load('youtube', 'v3', function() {
-	    handleAPILoaded();
+		  cntView.activities();
+		  uploadV.upLoad();
 	  });
 	}
 

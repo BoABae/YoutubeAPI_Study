@@ -5,6 +5,7 @@ var AppRouter = Backbone.Router.extend({
 		"uploadVideo_html" : "uploadVideo",
 		"searchResult_html" : "searchResult_html",
 		"uploadVideo_html": "upLoadVideo",
+		"myVideoList_html": "myVideoList",
 	},
 	initialize : function() {
 		
@@ -18,6 +19,9 @@ var AppRouter = Backbone.Router.extend({
 	},
 	upLoadVideo: function(){
 		this.changePage(uploadV);
+	},
+	myVideoList: function(){
+		this.changePage(myVideo);
 	},
 	changePage: function(page){
 		page.render();
