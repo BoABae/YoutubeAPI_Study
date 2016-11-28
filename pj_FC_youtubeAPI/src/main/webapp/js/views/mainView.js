@@ -70,6 +70,7 @@ $(document).ready(function(){
 	rList = new resultList();
 	token = new pageToken();
 	kWord = new keyword();
+	onLoadAuth();
 	router = new AppRouter();
 	Backbone.history.start();
 	
