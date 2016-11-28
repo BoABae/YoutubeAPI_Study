@@ -18,9 +18,6 @@ var youtubeSearchResult = Backbone.View.extend({
 		'click #nextPageBtn': 'nextPage',
 		'click #prevPageBtn': 'prevPage',
 	},
-	temp: function(){
-		console.log('hi');
-	},
 	
 	nextPage: function(){
 		
@@ -75,21 +72,21 @@ var youtubeSearchResult = Backbone.View.extend({
 		for(i = 0; i< response.items.length; i++){
 			var title = response.items[i].snippet.title;
 			var thumbnails_default = response.items[i].snippet.thumbnails.default.url;
-            var videoID = response.items[i].id.videoId;
+            var videoId = response.items[i].id.videoId;
             
-            rList.set({title : title, videoId : videoID, thumbnails_default: thumbnails_default});
+            rList.set({title : title, videoId : videoId, thumbnails_default: thumbnails_default});
             
-            var t = rList.get('title');
-            var v = rList.get('videoId');
-            var d = rList.get('thumbnails_default');
+            var title = rList.get('title');
+            var videoId = rList.get('videoId');
+            var thumbnails_default = rList.get('thumbnails_default');
             
             if(firstPage === true){
-            	emVideo = "<iframe id=ytplayer src='http://www.youtube.com/embed/" + v +"' frameborder=0/>"
-            	$(".list-group").append("<li class='list-group-item'>" + emVideo + t + "</li>");
+            	video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+videoId+"'><source src='http://www.youtube.com/watch?v="+videoId+"'></video><img id=imgTD src=\""+thumbnails_default+"\"/></a>";
+				$(".list-group").append("<li class='list-group-item'>" + video + title+ "</li>");
             }else{
             	$(".list-group").empty();
-            	emVideo = "<iframe id=ytplayer src='http://www.youtube.com/embed/" + v +"' frameborder=0/>"
-            	$(".list-group").append("<li class='list-group-item'>" + emVideo + t + "</li>");
+            	video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+videoId+"'><source src='http://www.youtube.com/watch?v="+videoId+"'></video><img id=imgTD src=\""+thumbnails_default+"\"/></a>";
+				$(".list-group").append("<li class='list-group-item'>" + video + title+ "</li>");
             }
 		}
 	},

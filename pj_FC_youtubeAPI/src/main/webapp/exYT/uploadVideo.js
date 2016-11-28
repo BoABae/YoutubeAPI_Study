@@ -27,14 +27,15 @@ function initiateUpload(){
 					Authorization: 'Bearer ' + accessToken,
 					'x-upload-content-length': file.size,
 					'x-upload-content-type': file.type,
+					'Access-Control-Expose-Headers': Location
 				},
 				data: d,
 			}).done(function(data, textStatus, jqXHR) {
-		        console.log(data);
+		        console.log(jqXHR);
 		        resumableUpload({
 		        	url: jqXHR.getResponseHeader('Location'),
 		        	file: file,
-		        	start: 0
+		        	start: 0,
 		        });
 			});
 		}
@@ -45,8 +46,7 @@ function initiateUpload(){
 }
 
 function resumableUpload(options){
-	console.log(options.file);
-	console.log(options.start)
+	console.log(options);
 	
 	
 	

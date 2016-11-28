@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>승마패밀리</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="shortcut icon" href="image/horse_f.ico">
+<script src="js/youtube/searchForList.js" type="text/javascript"></script>
+<style>
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+}
+ 
+/* Add a gray background color and some padding to the footer */
+#footer {
+	
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+h1, #search{
+		text-align:center;
+		
+	}
+#response{
+	visibility: hidden;
+}
+/* #search{
+float:right;
+}
+#T, #C, #D, #P, #CT {
+ 
+font-size: 12px;
+text-align:right;
+ width:60%; 
+float:right;
+ 
+} */
+ 
+#ad{
+width:100%;
+}
+ 
+@media (min-width:600px){
+	#ad{display: none;}
+	}
+}
+ 
+ 
+</style>
+<script>
+ 
+</script>
+</head>
+<body >
+ 
+	 <nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button><a class="navbar-brand" href="javascript:history.back();"><span class="glyphicon glyphicon-chevron-left"></a><div id="titles">승마동영상</div>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="main.html">홈</a></li>
+			        <li><a href="news.html">승마뉴스검색</a></li>
+			        <li><a href="relativeOrgan.html">승마관련 기관</a></li>
+			        <li><a href="selectLocal.html">전국승마장 찾기</a></li>
+			        <li><a href="list.jsp">자유게시판</a></li>
+			        <li><a href="Gallery/list.jsp">승마앨범</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+ 
+ 
+		<div class="jumbotron">
+		<div class="container ">
+			<div id="center_t">
+			<!-- 동영상 키워드 modal -->
+			<button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+				data-target="#myModal">동영상 키워드</button>
+			<!-- Modal -->
+			<span class="modal fade" id="myModal" role="dialog">
+				<div class="modal-dialog">
+ 
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">동영상 키워드</h4>
+						</div>
+						<div class="modal-body">
+							<table style="border-collapse: separate; border-spacing: 5px; text-align:center">
+								<tr>
+									<td
+										style="border: 1px solid #5c9cd8; border-radius: 4px; color: #fff; "><a
+										href="youtubelist.html">승마</a></td>
+									<td
+										style="border: 1px solid #5c9cd8; border-radius: 4px; color: #fff; "><a
+										href="youtube_keyword1.html">경마 </a></td>
+									<td
+										style="border: 1px solid #5c9cd8; border-radius: 4px; color: #fff;"><a
+										href="youtube_keyword2.html">말</a></td>
+										<td
+										style="border: 1px solid #5c9cd8; border-radius: 4px; color: #fff;"><a
+										href="youtube_keyword3.html">승마클럽</a></td>
+								</tr>
+									<tr>
+ 
+										<td
+											style="border: 1px solid #5c9cd8; border-radius: 4px; color: #fff;"><a
+											href="youtube_keyword4.html">승마기구효과</a></td>
+										<td
+											style="border: 1px solid #5c9cd8; border-radius: 4px; color: #fff;"><a
+											href="youtube_keyword5.html">승마협회</a></td>
+										<td
+											style="border: 1px solid #5c9cd8; border-radius: 4px; color: #fff;"><a
+											href="youtube_keyword6.html">스크린승마</a></td>
+										<td
+											style="border: 1px solid #5c9cd8; border-radius: 4px; color: #fff;"><a
+											href="youtube_keyword7.html">승마체험</a></td>
+									</tr>
+									<tr>
+										<td
+											style="border: 1px solid #5c9cd8; border-radius: 4px; color: #fff;"><a
+											href="youtube_keyword8.html">승마복</a></td>
+										<td
+											style="border: 1px solid #5c9cd8; border-radius: 4px; color: #fff;"><a
+											href="javascript:location.reload()">경마장</a></td>
+ 
+										<td
+											style="border: 1px solid #5c9cd8; border-radius: 4px; color: #fff;"><a
+											href="youtube_keyword10.html">마사회</a></td>
+										<td
+											style="border: 1px solid #5c9cd8; border-radius: 4px; color: #fff;"><a
+											href="youtube_keyword11.html">승마가격</a></td>
+									</tr>
+								</table>
+						</div>						
+					</div>
+				</div>
+			</span>
+		
+			<span id="search">
+				<input type="text" value="승마" id="searchtext">
+				<button type="button" class="fa fa-search" id="searchbutton"></button><br><br>
+			</span><br><br>
+		</div></div>
+			<!-- 동영상 목록 -->
+<!-- 			<div id="snipp"> -->
+ 
+			<pre id="count"></pre>
+ 
+			<table id="mytable" class="table table-condensed">
+				<tr>
+					<th>썸네일</th>
+					<th>내용</th>
+				</tr>
+			</table>
+ 			
+			<br><br>
+			<div id="bottom_btn">
+				<button type="button" id="prevPageButton">&lt;&lt; 이전목록 </button>
+				<span id="numberUpDown">1</span>
+				<button type="button" id="nextPageButton">다음목록 &gt;&gt; </button>
+			</div><br>
+ 
+			<div data-role="footer" id="footer" data-position="fixed">
+			<script>
+			window.onload = function(){
+				   gapi.client.load('youtube', 'v3', onYouTubeApiLoad);
+				 
+			}
+			</script>
+			
+			</div>
+		</div>
+	</div>
+</body>
+</html>

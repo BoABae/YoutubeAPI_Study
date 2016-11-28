@@ -1,4 +1,6 @@
-var playlistId, nextPageToken, prevPageToken;
+var playlistId;
+
+//유투브에서 좋아요, 나중에 볼 영상, 내가 올린 영상 등 channel을 통해 가져올 수 있는 목록을 보여줌
 var myVideoListView = Backbone.View.extend({
 	el: $("#content"),
 	initialize: function(){
@@ -8,7 +10,11 @@ var myVideoListView = Backbone.View.extend({
 		var template = _.template($("#myVideoList_html").html(), {});
 		this.$el.html(template);
 	},
-	//내가올린 동영상 목록 가져오는 함수
+	events: {
+		'click .nPageBtn': 'nextPage',
+		'click .pPageBtn': 'prevPage'
+	},
+	//내가 좋아요를 누른 목록을 가져오는 함수
 	playList: function(){
 		var self = this;
 		var request = gapi.client.youtube.channels.list({
@@ -18,38 +24,82 @@ var myVideoListView = Backbone.View.extend({
 		request.execute(function(response){
 			var str = JSON.stringify(response.result);
 			var obj = JSON.parse(str);
-			
-			playlistId = obj.items[0].contentDetails.relatedPlaylists.uploads;
-			console.log(playlistId);
-			self.requestVideoPlaylist(playlistId);
+			likeId = obj.items[0].contentDetails.relatedPlaylists.likes;
+			self.requestVideoPlaylist(likeId);
 		});
-		
 	},
-	requestVideoPlaylist: function(playlistId, pageToken){
+	nextPage: function(){
+		$(".list-group").empty();
+		var self = this;
+		var pToken = token.toJSON();
+		var nextPage = pToken.nextPageToken;
+		self.requestVideoPlaylist(likeId, nextPage);
+		var stat = $('#numberUD').text();
+        var num = parseInt(stat);
+        num++;
+        $('#numberUD').text(num);
+        var maxPage = pToken.maxPage;
+        if(num > maxPage){
+        	$('#numberUD').text(1);
+        }
+	},
+	prevPage: function(){
+		$(".list-group").empty();
+		var self = this;
+		var pToken = token.toJSON();
+		var prevPage = pToken.prevPageToken;
+		self.requestVideoPlaylist(likeId, prevPage);
+		var stat = $('#numberUD').text();
+        var num = parseInt(stat,10);
+        num--;
+        if(num<=0){
+        	num = 1;
+        }
+        $('#numberUD').text(num);
+	},
+	requestVideoPlaylist: function(likeId, pageToken){
 		var requestOptions = {
-			    playlistId: playlistId,
+			    playlistId: likeId,
 			    part: 'contentDetails, snippet',
-			    maxResults: 5
+			    maxResults: 5,
+			    pageToken: pageToken,
 		};
-		if(pageToken){
-			requestOption.pageToken = pageToken;
-		}
-		
 		var request = gapi.client.youtube.playlistItems.list(requestOptions);
-		
 		request.execute(function(response){
-			nextPageToken = response.result.nextPageToken;
-			prevPageToken = response.result.prevPageToken;
 			var str = JSON.stringify(response.result);
 			var obj = JSON.parse(str);
+			var t = obj.pageInfo.totalResults;
+			var r = obj.pageInfo.resultsPerPage;
+			var modResult = t % r;
+			var maxPage = parseInt(t/r);
+			if(modResult == 0){
+				token.set({maxPage: maxPage});
+			}else{
+				token.set({maxPage: maxPage+1});
+			}
+			
+			var nextPageToken = response.nextPageToken;
+				prevPageToken =	response.prevPageToken;
+			token.set({nextPageToken : nextPageToken, prevPageToken : prevPageToken});
+			
 			
 			for(i=0; i< obj.items.length ; i++){
 				var videoId = obj.items[i].contentDetails.videoId;
 				var title = obj.items[i].snippet.title;
-				thumbnails_default = obj.items[i].snippet.thumbnails.medium.url;
+				var thumbnails_default = obj.items[i].snippet.thumbnails.default.url;
+				rList.set({title : title, videoId : videoId, thumbnails_default: thumbnails_default});
 				
-				video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+videoId+"'><source src='http://www.youtube.com/watch?v="+videoId+"'></video><img id=imgTD src=\""+thumbnails_default+"\"/></a>";
-				$(".list-group").append("<li class='list-group-item'>" + video + title+ "</li>");
+				var title = rList.get('title');
+	            var videoId = rList.get('videoId');
+	            var thumbnails_default = rList.get('thumbnails_default');
+	            if(firstPage === true){
+	            	video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+videoId+"'><source src='http://www.youtube.com/watch?v="+videoId+"'></video><img id=imgTD src=\""+thumbnails_default+"\"/></a>";
+					$(".list-group").append("<li class='list-group-item'>" + video + title+ "</li>");
+	            }else{
+	            	$(".list-group").empty();
+	            	video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+videoId+"'><source src='http://www.youtube.com/watch?v="+videoId+"'></video><img id=imgTD src=\""+thumbnails_default+"\"/></a>";
+					$(".list-group").append("<li class='list-group-item'>" + video + title+ "</li>");
+	            }
 			}
 		});
 		

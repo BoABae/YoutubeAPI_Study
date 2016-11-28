@@ -33,16 +33,6 @@ var contentView = Backbone.View.extend({
 		var template = _.template($("#mainContent_html").html(), {});
 		this.$el.html(template);
 	},
-	events: {
-		'click #loadvideo': 'loadvideo',
-		'click #search': 'search',
-	},
-	loadvideo: function(){
-		router.navigate('uploadVideo_html', true);
-	},
-	search: function(){
-		router.navigate('searchResult_html', true);
-	},
 	activities: function(){
 		console.log("activities");
 		var self = this;
@@ -59,10 +49,11 @@ var contentView = Backbone.View.extend({
 
 		for(i=0; i<obj.items.length; i++){
 			var t = obj.items[i].snippet.title;
-			var v = obj.items[i].contentDetails.upload.videoId;
+			var videoId = obj.items[i].contentDetails.upload.videoId;
+			var thumbnails_default = obj.items[i].snippet.thumbnails.medium.url;
 			
-			emVideo = "<iframe id=ytplayer src='http://www.youtube.com/embed/" + v +"' frameborder=0/>"
-        	$(".list-group").append("<li class='list-group-item'>" + emVideo + t + "</li>");
+			video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+videoId+"'><source src='http://www.youtube.com/watch?v="+videoId+"'></video><img id=imgTD src=\""+thumbnails_default+"\"/></a>";
+			$(".list-group").append("<li class='list-group-item'>" + video + title+ "</li>");
 		}
 	}
 });

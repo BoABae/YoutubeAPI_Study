@@ -54,7 +54,6 @@ function loadAPIClientInterfaces() {
 }
 
 function onLoadAuth(){
-	
 }
 
 // Load the client interfaces for the YouTube Analytics and Data APIs, which

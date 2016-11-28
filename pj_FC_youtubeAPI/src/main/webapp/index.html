@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="lib/bootstrap.js"></script>
 <link rel="stylesheet" type="text/css" href="lib/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="lib/bootstrap-theme.css">
+<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css">
 <script src="lib/underscore.js"></script>
 <script src="lib/backbone.js"></script>
 
@@ -19,7 +21,11 @@
 	width: 200px;
 	height: 120px;
 }
-    
+#myVideoList{
+	width: 50px;
+	height: 50px;
+	background-img: 'css/likeBtn.png';
+}
 </style>
 </head>
 <body>
@@ -65,7 +71,8 @@
 				<button><a href="#uploadVideo_html">uploadVideo</a></button>
 			</div>
 			<div class="col-xs-6">
-				<button><a href="#myVideoList_html">myVideoList</a></button>
+				<button><a href="#myVideoList_html"><span class="glyphicon glyphicon-thumbs-up"></span></a></button>
+				좋아요 표시한 동영상
 			</div>
 		</div>
 	
@@ -81,14 +88,9 @@
 
 <script type="text/template" id="searchResult_html">
 	<div class="container">
-		
-
-
 		<div class="row">
 			<ul class="list-group">
-				
 			</ul>
-
 		</div>
 
 		<div class="row">
@@ -102,27 +104,32 @@
 
 
 <script type="text/template" id="uploadVideo_html">
-	<h1>video upload</h1>
-	<button id="temp">temp</button>
+	<div class="container">
+		<h5>video upload</h5>
+
+	</div>
 </script>
 
 <script type="text/template" id="myVideoList_html">
-	<div class="containter">
+	<div class="container">
 		<div class="row">
 			<ul class="list-group">
 			</ul>
 		</div>
-
+		<div class="row">
+			<button class="pPageBtn">이전목록</button>
+			<span id="numberUD">1</span>
+			<button class="nPageBtn">다음목록</button>
+		</div>
 	</div>
-
 </script>
 
 
 
 
+<script src="js/youtube/auth.js"></script>
 <script src="js/routers/router.js"></script>
 <script src="js/views/mainView.js"></script>
-<script src="js/youtube/auth.js"></script>
 <script src="js/views/youtubeSearchResult.js"></script>
 <script src="js/views/myVideoListView.js"></script>
 <script src="js/views/upLoadVideoView.js"></script>

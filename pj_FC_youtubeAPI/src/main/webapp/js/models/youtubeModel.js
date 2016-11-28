@@ -17,5 +17,6 @@ var pageToken = Backbone.Model.extend({
 	defaults: {
 		nextPageToken: '',
 		prevPageToken: '',
+		maxPage: '',
 	}
 });
