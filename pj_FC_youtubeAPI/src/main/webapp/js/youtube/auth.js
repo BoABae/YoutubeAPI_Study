@@ -11,7 +11,7 @@ var OAUTH2_SCOPES = [
 // Upon loading, the Google APIs JS client automatically invokes this callback.
 googleApiClientReady = function() {
 	gapi.auth.init(function() {
-	    window.setTimeout(checkAuth, 1);
+	    window.setTimeout(checkAuth, 100);
 	  });
 }
 
@@ -24,7 +24,7 @@ function checkAuth() {
   gapi.auth.authorize({
     client_id: OAUTH2_CLIENT_ID,
     scope: OAUTH2_SCOPES,
-    immediate: true,
+    immediate: false,
   }, handleAuthResult);
 }
 
