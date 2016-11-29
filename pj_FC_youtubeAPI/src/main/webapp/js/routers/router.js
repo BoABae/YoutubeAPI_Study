@@ -4,24 +4,30 @@ var AppRouter = Backbone.Router.extend({
 		"" : "mainContent_html",
 		"uploadVideo_html" : "uploadVideo",
 		"searchResult_html" : "searchResult",
-		"uploadVideo_html": "upLoadVideo",
-		"myVideoList_html": "myVideoList",
+		"myUploadVideoList_html": "myUpLoadVideo",
+		"myLikedVideoList_html": "mylikedVideoList",
+		"uploadVideo_html": "uploadVideo",
 	},
 	initialize : function() {
 	},
 	mainContent_html : function() {
 		this.changePage(cntView);
+		cntView.activities();
 	},
-	
 	searchResult: function(){
 		this.changePage(searchResult);
 	},
-	upLoadVideo: function(){
-		this.changePage(uploadV);
+	myUpLoadVideo: function(){
+		this.changePage(myUploadVideo);
+		onLoadAuth(myUploadVideo.myUploadVideoList());
 	},
-	myVideoList: function(){
+	mylikedVideoList: function(){
 		this.changePage(myVideo);
 		onLoadAuth(myVideo.playList());
+	},
+	uploadVideo: function(){
+		this.changePage(uploadV);
+		onLoadAuth(uploadV.videoUploadReady());
 	},
 	changePage: function(page){
 		page.render();

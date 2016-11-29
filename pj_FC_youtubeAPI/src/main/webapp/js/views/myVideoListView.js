@@ -1,13 +1,13 @@
 var playlistId;
 
 //유투브에서 좋아요, 나중에 볼 영상, 내가 올린 영상 등 channel을 통해 가져올 수 있는 목록을 보여줌
-var myVideoListView = Backbone.View.extend({
+var myLikedVideoListView = Backbone.View.extend({
 	el: $("#content"),
 	initialize: function(){
 		this.render();
 	},
 	render: function(){
-		var template = _.template($("#myVideoList_html").html(), {});
+		var template = _.template($("#myLikedVideoList_html").html(), {});
 		this.$el.html(template);
 	},
 	events: {
@@ -103,5 +103,38 @@ var myVideoListView = Backbone.View.extend({
 			}
 		});
 		
+	},
+	
+});
+//내가올린 동영상 목록
+var myUploadListView = Backbone.View.extend({
+	el: $("#content"),
+	initialize: function(){
+		this.render();
+	},
+	render: function(){
+		var template = _.template($("#myUploadVideoList_html").html(), {});
+		this.$el.html(template);
+	},
+
+	myUploadVideoList: function(){
+		var self = this;
+		var request = gapi.client.youtube.activities.list({
+			part: 'contentDetails, snippet',
+			mine: true,
+			maxResults: 2,
+		});
+		request.execute(function(response){
+			var str = JSON.stringify(response.result);
+			var obj = JSON.parse(str);
+			
+			for(i=0; i<obj.items.length; i++){
+				var title = obj.items[i].snippet.title;
+				var videoId = obj.items[i].contentDetails.upload.videoId;
+				var thumbnails_default = obj.items[i].snippet.thumbnails.default.url;
+				video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+videoId+"'><source src='http://www.youtube.com/watch?v="+videoId+"'></video><img id=imgTD src=\""+thumbnails_default+"\"/></a>";
+				$(".list-group").append("<li class='list-group-item'>" + video + title + "</li>");
+			}
+		});
 	},
 });

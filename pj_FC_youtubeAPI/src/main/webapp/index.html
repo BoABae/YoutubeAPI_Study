@@ -21,11 +21,10 @@
 	width: 200px;
 	height: 120px;
 }
-#myVideoList{
-	width: 50px;
-	height: 50px;
-	background-img: 'css/likeBtn.png';
+.row{
+	margin-bottom: 10px;
 }
+
 </style>
 </head>
 <body>
@@ -53,8 +52,8 @@
 				
     		<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
       			<ul class="nav navbar-nav">
-        			<li><a href="#uploadVideo_html">UPLOADVIDEO</a></li>
-        			<li><a href="#myVideoList_html">MYVIDEOLIST</a></li>
+        			<li><a href="#myUploadVideo_html">UPLOADVIDEO</a></li>
+        			<li><a href="#myLikedVideoList_html">MYVIDEOLIST</a></li>
       			</ul>
     		</div>
   		</div>
@@ -67,15 +66,17 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-6">
-				<button><a href="#uploadVideo_html">uploadVideo</a></button>
+			<div class="col-xs-4">
+				<button><a href="#uploadVideo_html">동영상 올리기</a></button>
 			</div>
-			<div class="col-xs-6">
-				<button><a href="#myVideoList_html"><span class="glyphicon glyphicon-thumbs-up"></span></a></button>
+			<div class="col-xs-4">
+				<button><a href="#myUploadVideoList_html">내 동영상 목록</a></button>
+			</div>
+			<div class="col-xs-4">
+				<button><a href="#myLikedVideoList_html"><span class="glyphicon glyphicon-thumbs-up"></span></a></button>
 				좋아요 표시한 동영상
 			</div>
 		</div>
-	
 
 		<div class="row">
 			<ul class="list-group">
@@ -102,15 +103,54 @@
 </script>
 
 
-
 <script type="text/template" id="uploadVideo_html">
 	<div class="container">
-		<h5>video upload</h5>
+		<div class="row">
+			<div class="col-xs-6">
+				<label for="title">Title:</label>
+        		<input id="title" type="text" value="Default Title">
+			</div>
+			<div class="col-xs-6">
+				<label for="description">Description:</label>
+				<textarea id="description">Default</textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<input id="file" type="file">
+			</div>
+			<div class="col-xs-6">
+				<button id="submit">Upload</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="progress">
+  				<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+  				</div>
+			</div>
+		</div>
+		<div class="row">
+			<button id="temp">temp</button>
+		</div>
+	</div>
+</script>
+
+
+
+
+<script type="text/template" id="myUploadVideoList_html">
+	<div class="container">
+		<div class="row">
+			<ul class="list-group">
+
+
+			</ul>
+		</div>
 
 	</div>
 </script>
 
-<script type="text/template" id="myVideoList_html">
+<script type="text/template" id="myLikedVideoList_html">
 	<div class="container">
 		<div class="row">
 			<ul class="list-group">

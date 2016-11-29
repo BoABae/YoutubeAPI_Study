@@ -23,6 +23,9 @@ var headerView = Backbone.View.extend({
 	}
 });
 
+
+
+
 var contentView = Backbone.View.extend({
 	el:$("#content"),
 	initialize: function(){
@@ -33,8 +36,8 @@ var contentView = Backbone.View.extend({
 		var template = _.template($("#mainContent_html").html(), {});
 		this.$el.html(template);
 	},
+	
 	activities: function(){
-		console.log("activities");
 		var self = this;
 		var request = gapi.client.youtube.activities.list({
 			part: 'contentDetails, snippet',
@@ -42,37 +45,36 @@ var contentView = Backbone.View.extend({
 			maxResult: 5,
 		});
 		request.execute(self.activitiesList);
+		
 	},
 	activitiesList: function(response){
 		var str = JSON.stringify(response.result);
 		var obj = JSON.parse(str);
 
 		for(i=0; i<obj.items.length; i++){
-			var t = obj.items[i].snippet.title;
+			var title = obj.items[i].snippet.title;
 			var videoId = obj.items[i].contentDetails.upload.videoId;
-			var thumbnails_default = obj.items[i].snippet.thumbnails.medium.url;
+			var thumbnails_default = obj.items[i].snippet.thumbnails.default.url;
 			
 			video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+videoId+"'><source src='http://www.youtube.com/watch?v="+videoId+"'></video><img id=imgTD src=\""+thumbnails_default+"\"/></a>";
-			$(".list-group").append("<li class='list-group-item'>" + video + title+ "</li>");
+			$(".list-group").append("<li class='list-group-item'>" + video + title + "</li>");
 		}
 	}
+	
 });
 
 
 $(document).ready(function(){
 	hdView = new headerView();
 	cntView = new contentView();
-	uploadV = new uploadVideo();
+	myUploadVideo = new myUploadListView();
 	searchResult = new youtubeSearchResult();
-	myVideo = new myVideoListView();
-	
-	
+	myVideo = new myLikedVideoListView();
+	uploadV = new uploadVideo();
 	rList = new resultList();
 	token = new pageToken();
 	kWord = new keyword();
-	onLoadAuth();
 	router = new AppRouter();
 	Backbone.history.start();
-	
 	
 });

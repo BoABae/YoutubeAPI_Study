@@ -1,50 +1,91 @@
-/*
-Copyright 2013 Google Inc. All Rights Reserved.
+// at https://console.developers.google.com/.
+var GOOGLE_PLUS_SCRIPT_URL = 'https://apis.google.com/js/client:plusone.js';
+var CHANNELS_SERVICE_URL = 'https://www.googleapis.com/youtube/v3/channels';
+var VIDEOS_UPLOAD_SERVICE_URL = 'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet';
+var VIDEOS_SERVICE_URL = 'https://www.googleapis.com/youtube/v3/videos';
+var INITIAL_STATUS_POLLING_INTERVAL_MS = 15 * 1000;
+var OAUTH2_CLIENT_ID = '63003107558-ft047cvll1gasan36pbnf7m2cm7547db.apps.googleusercontent.com';
+var OAUTH2_SCOPES = [
+  'https://www.googleapis.com/auth/youtube'
+];
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+// Upon loading, the Google APIs JS client automatically invokes this callback.
+googleApiClientReady = function() {
+	gapi.auth.init(function() {
+	    window.setTimeout(checkAuth, 1);
+	  });
+}
 
-  http://www.apache.org/licenses/LICENSE-2.0
+// Attempt the immediate OAuth 2.0 client flow as soon as the page loads.
+// If the currently logged-in Google Account has previously authorized
+// the client specified as the OAUTH2_CLIENT_ID, then the authorization
+// succeeds with no user intervention. Otherwise, it fails and the
+// user interface that prompts for authorization needs to display.
+function checkAuth() {
+  gapi.auth.authorize({
+    client_id: OAUTH2_CLIENT_ID,
+    scope: OAUTH2_SCOPES,
+    immediate: true,
+  }, handleAuthResult);
+}
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+// Handle the result of a gapi.auth.authorize() call.
+function handleAuthResult(authResult) {
+  if (authResult && !authResult.error) {
+    // Authorization was successful. Hide authorization prompts and show
+    // content that should be visible after authorization succeeds.
+	  
+	  if (authResult['access_token']) {
+	      accessToken = authResult['access_token'];
+	      console.log(accessToken);
+	      $.ajax({
+	        url: CHANNELS_SERVICE_URL,
+	        method: 'GET',
+	        headers: {
+	          Authorization: 'Bearer ' + accessToken
+	        },
+	        data: {
+	          part: 'snippet',
+	          mine: true
+	        }
+	      }).done(function() {
+	        
+	        uploadV.videoUploadReady();
+	      });
+	    }
+	  
+	 
+    $('.pre-auth').hide();
+    $('.post-auth').show();
+    
+    loadAPIClientInterfaces();
+  } else {
+    // Make the #login-link clickable. Attempt a non-immediate OAuth 2.0
+    // client flow. The current function is called when that flow completes.
+    $('#login-link').click(function() {
+      gapi.auth.authorize({
+        client_id: OAUTH2_CLIENT_ID,
+        scope: OAUTH2_SCOPES,
+        immediate: true
+        }, handleAuthResult);
+    });
+  }
+}
+function loadAPIClientInterfaces() {
+	  gapi.client.load('youtube', 'v3', function(){
+		  uploadReady();
+	  });
+}
 
-(function() {
-  var GOOGLE_PLUS_SCRIPT_URL = 'https://apis.google.com/js/client:plusone.js';
-  var CHANNELS_SERVICE_URL = 'https://www.googleapis.com/youtube/v3/channels';
-  var VIDEOS_UPLOAD_SERVICE_URL = 'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet';
-  var VIDEOS_SERVICE_URL = 'https://www.googleapis.com/youtube/v3/videos';
-  var INITIAL_STATUS_POLLING_INTERVAL_MS = 15 * 1000;
+// Load the client interfaces for the YouTube Analytics and Data APIs, which
+// are required to use the Google APIs JS client. More info is available at
+// https://developers.google.com/api-client-library/javascript/dev/dev_jscript#loading-the-client-library-and-the-api
+// function loadAPIClientInterfaces() {
+// handleAPILoaded();
+// }
+function uploadReady(){
+  
 
-  var accessToken;
-
-  window.oauth2Callback = function(authResult) {
-    if (authResult['access_token']) {
-      accessToken = authResult['access_token'];
-
-      $.ajax({
-        url: CHANNELS_SERVICE_URL,
-        method: 'GET',
-        headers: {
-          Authorization: 'Bearer ' + accessToken
-        },
-        data: {
-          part: 'snippet',
-          mine: true
-        }
-      }).done(function(response) {
-        $('#channel-name').text(response.items[0].snippet.title);
-        $('#channel-thumbnail').attr('src', response.items[0].snippet.thumbnails.default.url);
-        console.log(data);
-        $('.post-sign-in').show();
-      });
-    }
-  };
 
   function initiateUpload(e) {
     e.preventDefault();
@@ -176,4 +217,4 @@ limitations under the License.
 
     $('#upload-form').submit(initiateUpload);
   });
-})();
+}
