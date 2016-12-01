@@ -82,7 +82,7 @@ var myLikedVideoListView = Backbone.View.extend({
 				prevPageToken =	response.prevPageToken;
 			token.set({nextPageToken : nextPageToken, prevPageToken : prevPageToken});
 			
-			
+			if(obj.items.length ==! 0){
 			for(i=0; i< obj.items.length ; i++){
 				var videoId = obj.items[i].contentDetails.videoId;
 				var title = obj.items[i].snippet.title;
@@ -100,6 +100,9 @@ var myLikedVideoListView = Backbone.View.extend({
 	            	video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+videoId+"'><source src='http://www.youtube.com/watch?v="+videoId+"'></video><img id=imgTD src=\""+thumbnails_default+"\"/></a>";
 					$(".list-group").append("<li class='list-group-item'>" + video + title+ "</li>");
 	            }
+			}
+			}else{
+				$(".list-group").append("<h4>좋아요 누른 동영상이 없습니다.</h4>");
 			}
 		});
 		
@@ -122,18 +125,22 @@ var myUploadListView = Backbone.View.extend({
 		var request = gapi.client.youtube.activities.list({
 			part: 'contentDetails, snippet',
 			mine: true,
-			maxResults: 2,
 		});
 		request.execute(function(response){
 			var str = JSON.stringify(response.result);
 			var obj = JSON.parse(str);
-			
-			for(i=0; i<obj.items.length; i++){
-				var title = obj.items[i].snippet.title;
-				var videoId = obj.items[i].contentDetails.upload.videoId;
-				var thumbnails_default = obj.items[i].snippet.thumbnails.default.url;
-				video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+videoId+"'><source src='http://www.youtube.com/watch?v="+videoId+"'></video><img id=imgTD src=\""+thumbnails_default+"\"/></a>";
-				$(".list-group").append("<li class='list-group-item'>" + video + title + "</li>");
+			console.log(obj);
+			if(obj.items.length ==! 0){
+				for(i=0; i<obj.items.length; i++){
+					var title = obj.items[i].snippet.title;
+					var videoId = obj.items[i].contentDetails.upload.videoId;
+					var thumbnails_default = obj.items[i].snippet.thumbnails.default.url;
+					video = "<a id=linktoVid1 href='http://www.youtube.com/watch?v="+videoId+"'><source src='http://www.youtube.com/watch?v="+videoId+"'></video><img id=imgTD src=\""+thumbnails_default+"\"/></a>";
+					$(".list-group").append("<li class='list-group-item'>" + video + title + "</li>");
+				}
+				
+			}else{
+				$(".list-group").append("<h4>업로드한 동영상이 없습니다.</h4>");
 			}
 		});
 	},
